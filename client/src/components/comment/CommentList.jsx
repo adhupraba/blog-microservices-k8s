@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-const CommentList = ({ postId }) => {
-  const [comments, setComments] = useState([]);
-
-  const fetchComments = async () => {
-    const { data } = await axios.get(`http://localhost:7002/posts/${postId}/comments`);
-    setComments(data);
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
+const CommentList = ({ comments }) => {
   return (
     <ul className="list-group">
-      {comments.map((comment, idx) => (
-        <li className="list-group-item" key={idx}>
-          {comment.content}
-        </li>
-      ))}
+      {comments.map((comment, idx) => {
+        const isApproved = comment.status === "approved";
+        const isPending = comment.status === "pending";
+        const isRejected = comment.status === "rejected";
+
+        const content = isApproved
+          ? comment.content
+          : isPending
+          ? "This comment is awaiting moderation"
+          : isRejected
+          ? "This comment has been rejected"
+          : "";
+
+        const className = isPending ? "list-group-item-warning" : isRejected ? "list-group-item-danger" : "";
+
+        return (
+          <li className={`list-group-item ${className}`} key={idx}>
+            {content}
+          </li>
+        );
+      })}
     </ul>
   );
 };
