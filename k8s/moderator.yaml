@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderator-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderator
+  template:
+    metadata:
+      labels:
+        app: moderator
+    spec:
+      containers:
+        - name: moderator
+          image: adhupraba/moderator
+          # for local development purpose only
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7004
+              protocol: TCP
+          resources:
+            limits:
+              memory: "50Mi"
+              cpu: "50m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderator-svc
+spec:
+  selector:
+    app: moderator
+  ports:
+    - port: 7004
+      targetPort: 7004
+      protocol: TCP

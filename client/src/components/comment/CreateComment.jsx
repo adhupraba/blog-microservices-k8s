@@ -7,7 +7,7 @@ const CreateComment = ({ postId }) => {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.post(`http://localhost:7002/posts/${postId}/comments`, { content });
+    await axios.post(`http://posts.com/posts/${postId}/comments`, { content });
     setContent("");
   };
 

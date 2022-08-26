@@ -8,7 +8,7 @@ router.post("/events", async (req, res) => {
   if (type === "COMMENT_CREATED") {
     const status = data.content.includes("orange") ? "rejected" : "approved";
     axios
-      .post("http://localhost:8000/events", {
+      .post("http://eventbus-svc:8000/events", {
         type: "COMMENT_MODERATED",
         data: { ...data, status },
       })

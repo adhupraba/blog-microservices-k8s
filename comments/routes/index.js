@@ -16,7 +16,7 @@ router.post("/events", async (req, res) => {
     commentsByPostId[postId][commentIdx] = comment;
 
     axios
-      .post("http://localhost:8000/events", {
+      .post("http://eventbus-svc:8000/events", {
         type: "COMMENT_UPDATED",
         data,
       })
@@ -48,7 +48,7 @@ router.post("/posts/:postId/comments", (req, res) => {
   console.log(commentsByPostId[postId]);
 
   axios
-    .post("http://localhost:8000/events", {
+    .post("http://eventbus-svc:8000/events", {
       type: "COMMENT_CREATED",
       data: { ...newComment, postId },
     })

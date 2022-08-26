@@ -11,13 +11,13 @@ router.post("/events", (req, res) => {
   events.push(event);
 
   // post
-  axios.post("http://localhost:7001/events", event).catch(console.error);
+  axios.post("http://posts-svc:7001/events", event).catch(console.error);
   // comment
-  axios.post("http://localhost:7002/events", event).catch(console.error);
+  axios.post("http://comments-svc:7002/events", event).catch(console.error);
   // query
-  axios.post("http://localhost:7003/events", event).catch(console.error);
+  axios.post("http://query-svc:7003/events", event).catch(console.error);
   // moderator
-  axios.post("http://localhost:7004/events", event).catch(console.error);
+  axios.post("http://moderator-svc:7004/events", event).catch(console.error);
 
   res.send({ status: true });
 });

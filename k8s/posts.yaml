@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: adhupraba/posts
+          # for local development purpose only
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7001
+              protocol: TCP
+          resources:
+            limits:
+              memory: "50Mi"
+              cpu: "50m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-svc
+spec:
+  selector:
+    app: posts
+  ports:
+    - port: 7001
+      targetPort: 7001
+      protocol: TCP

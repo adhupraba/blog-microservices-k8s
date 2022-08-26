@@ -7,7 +7,7 @@ const CreatePost = () => {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.post("http://localhost:7001/posts", { title });
+    await axios.post("http://posts.com/posts/create", { title });
     setTitle("");
   };
 

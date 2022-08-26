@@ -15,7 +15,7 @@ app.listen(7003, async () => {
   try {
     console.log("query service started on port 7003");
 
-    const { data } = await axios.get("http://localhost:8000/events");
+    const { data } = await axios.get("http://eventbus-svc:8000/events");
 
     for (let event of data) {
       console.log("processing event =>", event.type);
